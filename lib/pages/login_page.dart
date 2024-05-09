@@ -26,7 +26,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
         actions: <Widget>[
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/signup');  // Navigate to SignUpPage
+            },
             child: const Text('Sign Up', style: TextStyle(color: Colors.white)),
           )
         ],
@@ -44,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Email',
+                hintStyle: TextStyle(color: Colors.grey), // Change color of hint text
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
@@ -57,6 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                 filled: true,
                 fillColor: Colors.white,
                 hintText: 'Password',
+                hintStyle: TextStyle(color: Colors.grey), // Change color of hint text
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
@@ -73,7 +77,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // Validate your login credentials here
+                // If credentials are valid, navigate to MenuPage
+                Navigator.pushNamed(context, '/home');
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFFF9900), // Orange color
                 foregroundColor: Colors.white, // Ensures all foreground colors are white

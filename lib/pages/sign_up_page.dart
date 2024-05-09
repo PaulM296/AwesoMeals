@@ -35,7 +35,9 @@ class SignUpPage extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/');  // Navigate to LoginPage
+            },
             child: Text('Login', style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -55,13 +57,13 @@ class SignUpPage extends StatelessWidget {
             buildPasswordField(),
             SizedBox(height: 40),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange, // Orange color for the button
-                minimumSize: Size(double.infinity, 50), // full width and fixed height
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30), // Rounded corners
-                ),
+                backgroundColor: const Color(0xFFFF9900), // Orange color
+                foregroundColor: Colors.white, // Ensures all foreground colors are white
+                minimumSize: const Size(double.infinity, 50), // full width and 50px height
               ),
               child: Text('Sign Up'),
             ),
