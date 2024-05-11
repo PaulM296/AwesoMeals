@@ -20,18 +20,24 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Text('9:41', style: TextStyle(color: Colors.white, fontSize: 16)),
+        titleSpacing: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: const Text('9:41', style: TextStyle(color: Colors.white, fontSize: 16)),
+            ),
+            const Text('Log In', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/signup');  // Navigate to SignUpPage
+              },
+              child: const Text('Sign Up', style: TextStyle(color: Colors.white)),
+            ),
+          ],
         ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/signup');  // Navigate to SignUpPage
-            },
-            child: const Text('Sign Up', style: TextStyle(color: Colors.white)),
-          )
-        ],
+        leadingWidth: 40,  // Adjust as necessary to fit the design
       ),
       backgroundColor: const Color(0xFF2C325D),
       body: Padding(
@@ -78,8 +84,6 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                // Validate your login credentials here
-                // If credentials are valid, navigate to MenuPage
                 Navigator.pushNamed(context, '/home');
               },
               style: ElevatedButton.styleFrom(

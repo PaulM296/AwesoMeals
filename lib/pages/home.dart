@@ -1,45 +1,10 @@
 import 'package:flutter/material.dart';
 
-// class Home extends StatefulWidget {
-//   const Home({super.key});
-//
-//   @override
-//   State<Home> createState() => _HomeState();
-// }
-//
-// class _HomeState extends State<Home> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 10.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Text("Menu",
-//                 style: AppWidget.boldTextFieldStyle()
-//                 ),
-//                 Container(
-//                   padding: EdgeInsets.all(3),
-//                   decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(8)),
-//                   child: Icon(Icons.shopping_cart, color: Colors.white,),
-//                 )
-//               ],
-//             ),
-//             SizedBox(height: 30.0,),
-//             Text("Delicious Food",
-//                 style: AppWidget.boldTextFieldStyle()
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
+const Color primaryColor = Color(0xFFFF9900);  // Orange
+const Color lightBackground = Color(0xFFFFF3E0);  // Light orange for background
+const Color accentColor = Color(0xFFF57C00);  // Darker orange for accents
+const Color whiteColor = Colors.white;  // White for text and icons
+const Color blueColor = Color(0xFF2C325D);
 void main() {
   runApp(const MaterialApp(home: MenuPage()));
 }
@@ -51,14 +16,10 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orangeAccent,
-        title: const Text('Menu'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {},
-          ),
-        ],
+        backgroundColor: primaryColor,
+        foregroundColor: primaryColor,
+        title: const Text('Menu', style: TextStyle(color: whiteColor)),
+        actions: [],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -78,23 +39,24 @@ class MenuPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        style: TextStyle(color: blueColor),
         decoration: InputDecoration(
           hintText: 'Search',
-          prefixIcon: const Icon(Icons.search),
+          prefixIcon: const Icon(Icons.search, color: Colors.grey),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
+            borderSide: BorderSide.none, // Ensures no border is visible
           ),
           filled: true,
-          fillColor: Colors.grey[200],
+          fillColor: whiteColor, // Ensure this matches your design
         ),
       ),
     );
   }
 
   Widget _categorySelector() {
-    // This can be further improved with a ListView.builder for dynamic content
-    return SizedBox(
+    return Container(
+      color: primaryColor, // Set the background color for the category selector
       height: 50,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -102,7 +64,7 @@ class MenuPage extends StatelessWidget {
           return Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(category),
+            child: Text(category, style: TextStyle(color: blueColor)),
           );
         }).toList(),
       ),
@@ -110,14 +72,15 @@ class MenuPage extends StatelessWidget {
   }
 
   Widget _promotionCard() {
-    return const Card(
-      margin: EdgeInsets.all(8),
+    return Card(
+      color: lightBackground,
+      margin: const EdgeInsets.all(8),
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: ListTile(
-          title: Text('50% on Cup of Ice Cream'),
-          subtitle: Text('for all orders above 40 RON'),
-          trailing: Icon(Icons.local_offer),
+          title: const Text('50% on Cup of Ice Cream', style: TextStyle(color: blueColor)),
+          subtitle: const Text('for all orders above 40 RON', style: TextStyle(color: blueColor)),
+          trailing: const Icon(Icons.local_offer, color: accentColor),
         ),
       ),
     );
@@ -128,16 +91,18 @@ class MenuPage extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
-      padding: const EdgeInsets.all(8),
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
       children: List.generate(4, (index) {
-        return GridTile(
-          footer: GridTileBar(
-            backgroundColor: Colors.black45,
-            title: Text('Dish $index'),
+        return Container( // Wrap in a Container to control color
+          color: blueColor, // Set the background color for each dish tile
+          child: GridTile(
+            footer: GridTileBar(
+              backgroundColor: Colors.transparent, // Clear or use a specific color
+              title: Text('Dish $index', style: TextStyle(color: primaryColor)),
+            ),
+            child: Image.network('https://via.placeholder.com/150'),
           ),
-          child: Image.network('https://via.placeholder.com/150'),
         );
       }),
     );
@@ -145,7 +110,7 @@ class MenuPage extends StatelessWidget {
 
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
@@ -153,6 +118,10 @@ class MenuPage extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.menu),
           label: 'Menu',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart),
+          label: 'Cart',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),
@@ -163,10 +132,11 @@ class MenuPage extends StatelessWidget {
           label: 'Info',
         ),
       ],
-      selectedItemColor: Colors.amber[800],
-      unselectedItemColor: Colors.white,
-      backgroundColor: Colors.deepOrange,
+      selectedItemColor: accentColor,
+      unselectedItemColor: whiteColor,
+      backgroundColor: primaryColor,
       type: BottomNavigationBarType.fixed,
+      // Add here the current index management if necessary
     );
   }
 }
