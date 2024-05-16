@@ -1,4 +1,5 @@
 import 'package:awesomeals/pages/home.dart';
+import 'package:awesomeals/pages/home_page.dart';
 import 'package:awesomeals/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:awesomeals/pages/login_page.dart';
@@ -15,14 +16,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Authentication Demo',
       theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: const Color(0xFFFF9900)
       ),
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginPage(),
         '/signup': (context) => const SignUpPage(),
-        '/home': (context) => const MenuPage()
+        '/home': (context) => const Home()
       },
     );
   }
