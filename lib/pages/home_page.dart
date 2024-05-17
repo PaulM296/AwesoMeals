@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
                   Container(
                     padding: EdgeInsets.all(3),
                     decoration: BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(8)),
-                    child: Icon(Icons.shopping_cart, color: Colors.white,),
+                    child: Icon(Icons.shopping_cart, color: primaryColor),
                   )
                 ],
               ),

@@ -1,7 +1,7 @@
 import 'package:awesomeals/pages/bottomnav.dart';
-import 'package:awesomeals/pages/home.dart';
 import 'package:awesomeals/pages/home_page.dart';
 import 'package:awesomeals/pages/sign_up_page.dart';
+import 'package:awesomeals/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:awesomeals/pages/login_page.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xFFFF9900)
       ),
-      home: BottomNav()
+      home: SignUp()
       // initialRoute: '/',
       // routes: {
       //   '/': (context) => const LoginPage(),
