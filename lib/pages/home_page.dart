@@ -29,44 +29,74 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Menu",
-                style: AppWidget.boldTextFieldStyle()
-                ),
-                Container(
-                  padding: EdgeInsets.all(3),
-                  decoration: BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(8)),
-                  child: Icon(Icons.shopping_cart, color: Colors.white,),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Text("Delicious Food",
-                style: AppWidget.HeadlineTextFieldStyle()
-            ),
-            SizedBox(
-                height: 20.0
-            ),
-            ShowItem(),
-            SizedBox(height: 30.0,),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+      body: SingleChildScrollView (
+        child: Container(
+          margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
-                    },
-                    child: Container(
+                  Text("Menu",
+                      style: AppWidget.boldTextFieldStyle()
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(3),
+                    decoration: BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(8)),
+                    child: Icon(Icons.shopping_cart, color: Colors.white,),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Text("Delicious Food",
+                  style: AppWidget.HeadlineTextFieldStyle()
+              ),
+              SizedBox(
+                  height: 20.0
+              ),
+              ShowItem(),
+              SizedBox(height: 30.0,),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(4),
+                        child: Material(
+                          elevation: 5.0,
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            padding: EdgeInsets.all(14),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset("images/Pizza2.png", height: 150, width: 150, fit: BoxFit.cover),
+                                Text("Salami Pizza",
+                                    style: AppWidget.semiboldTextFieldStyle()),
+                                SizedBox(
+                                  height: 5.0,
+                                ),
+                                Text("Tasty And Delicious",
+                                    style: AppWidget.lightWhiteTextFieldStyle()),
+                                SizedBox(
+                                  height: 5.0,
+                                ),
+                                Text("\45.99Ron",
+                                    style: AppWidget.lightWhiteTextFieldStyle())
+                              ],),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15.0),
+                    Container(
                       margin: EdgeInsets.all(4),
                       child: Material(
                         elevation: 5.0,
@@ -76,9 +106,9 @@ class _HomeState extends State<Home> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset("images/Pizza2.png", height: 150, width: 150, fit: BoxFit.cover),
+                              Image.asset("images/Burger2.png", height: 150, width: 150, fit: BoxFit.cover),
                               Text("Salami Pizza",
-                                style: AppWidget.semiboldTextFieldStyle()),
+                                  style: AppWidget.semiboldTextFieldStyle()),
                               SizedBox(
                                 height: 5.0,
                               ),
@@ -87,77 +117,83 @@ class _HomeState extends State<Home> {
                               SizedBox(
                                 height: 5.0,
                               ),
-                              Text("\45.99Ron",
+                              Text("\41.99Ron",
                                   style: AppWidget.lightWhiteTextFieldStyle())
                             ],),
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(width: 15.0),
-                  Container(
-                    margin: EdgeInsets.all(4),
-                    child: Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        padding: EdgeInsets.all(14),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset("images/Burger2.png", height: 150, width: 150, fit: BoxFit.cover),
-                            Text("Salami Pizza",
-                                style: AppWidget.semiboldTextFieldStyle()),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text("Tasty And Delicious",
-                                style: AppWidget.lightWhiteTextFieldStyle()),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text("\41.99Ron",
-                                style: AppWidget.lightWhiteTextFieldStyle())
-                          ],),
-                      ),
-                    ),
-                  )
-              ],),
-            ),
-            SizedBox(height: 30.0),
-            Container(
-              margin: EdgeInsets.only(right: 20.0),
-              child: Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Image.asset("images/Pizza2.png", height: 120, width: 120, fit: BoxFit.cover),
-                    SizedBox(width: 20.0),
-                    Column(children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width/2,
-                        child: Text("Pepperoni Pizza", style: AppWidget.semiboldTextFieldStyle())
-                      ),
-                      SizedBox(height: 5.0),
-                      Container(
-                        width: MediaQuery.of(context).size.width/2,
-                        child: Text("A very tasty and delicious pizza", style: AppWidget.lightWhiteTextFieldStyle())
-                      ),
-                      SizedBox(height: 5.0),
-                      Container(
-                          width: MediaQuery.of(context).size.width/2,
-                          child: Text("42.99Ron", style: AppWidget.lightWhiteTextFieldStyle())
-                      ),
-                    ],)
+                    )
                   ],),
+              ),
+
+              SizedBox(height: 30.0),
+              Container(
+                margin: EdgeInsets.only(right: 20.0),
+                child: Material(
+                  elevation: 5.0,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset("images/Pizza2.png", height: 120, width: 120, fit: BoxFit.cover),
+                        SizedBox(width: 20.0),
+                        Column(children: [
+                          Container(
+                              width: MediaQuery.of(context).size.width/2,
+                              child: Text("Pepperoni Pizza", style: AppWidget.semiboldTextFieldStyle())
+                          ),
+                          SizedBox(height: 5.0),
+                          Container(
+                              width: MediaQuery.of(context).size.width/2,
+                              child: Text("A very tasty and delicious pizza", style: AppWidget.lightWhiteTextFieldStyle())
+                          ),
+                          SizedBox(height: 5.0),
+                          Container(
+                            width: MediaQuery.of(context).size.width/2,
+                            child: Text("42.99Ron", style: AppWidget.lightWhiteTextFieldStyle()),
+                          ),
+                        ],)
+                      ],),
+                  ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 30.0),
+              Container(
+                margin: EdgeInsets.only(right: 20.0),
+                child: Material(
+                  elevation: 5.0,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset("images/Pizza2.png", height: 120, width: 120, fit: BoxFit.cover),
+                        SizedBox(width: 20.0),
+                        Column(children: [
+                          Container(
+                              width: MediaQuery.of(context).size.width/2,
+                              child: Text("Pepperoni Pizza", style: AppWidget.semiboldTextFieldStyle())
+                          ),
+                          SizedBox(height: 5.0),
+                          Container(
+                              width: MediaQuery.of(context).size.width/2,
+                              child: Text("A very tasty and delicious pizza", style: AppWidget.lightWhiteTextFieldStyle())
+                          ),
+                          SizedBox(height: 5.0),
+                          Container(
+                            width: MediaQuery.of(context).size.width/2,
+                            child: Text("42.99Ron", style: AppWidget.lightWhiteTextFieldStyle()),
+                          ),
+                        ],)
+                      ],),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
