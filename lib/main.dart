@@ -1,12 +1,20 @@
 import 'package:awesomeals/pages/bottomnav.dart';
 import 'package:awesomeals/pages/home_page.dart';
-import 'package:awesomeals/pages/sign_up_page.dart';
+import 'package:awesomeals/pages/onboard.dart';
 import 'package:awesomeals/pages/signup.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:awesomeals/pages/login_page.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: "AIzaSyBFT9P5_LWjgFmgETyh5iFeBgslVQEYCp4",
+        appId: "1:942078212714:android:ac4e45a51e6167f0be2813",
+        messagingSenderId: "942078212714",
+        projectId: "awesomeals-6f4e8")
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xFFFF9900)
       ),
-      home: SignUp()
+      home: Onboard()
       // initialRoute: '/',
       // routes: {
       //   '/': (context) => const LoginPage(),
