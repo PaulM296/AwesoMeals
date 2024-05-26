@@ -1,8 +1,10 @@
 import 'package:awesomeals/pages/bottomnav.dart';
+import 'package:awesomeals/pages/forgot_password.dart';
 import 'package:awesomeals/pages/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../widget/widget_support.dart';
 
@@ -139,12 +141,17 @@ class _LoginState extends State<Login> {
                             SizedBox(
                               height: 20.0,
                             ),
-                            Container(
-                                alignment: Alignment.topRight,
-                                child: Text(
-                                  "Forgot Password?",
-                                  style: AppWidget.semiboldTextFieldStyle(),
-                                )),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                              },
+                              child: Container(
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    "Forgot Password?",
+                                    style: AppWidget.semiboldTextFieldStyle(),
+                                  )),
+                            ),
                             SizedBox(
                               height: 80.0,
                             ),
