@@ -29,7 +29,7 @@ class _SignUpState extends State<SignUp> {
             .createUserWithEmailAndPassword(email: email, password: password);
 
         ScaffoldMessenger.of(context).showSnackBar((SnackBar(
-          backgroundColor: Color(0xFFFF9900),
+          backgroundColor: Color(0xFF2C325D),
           content: Text(
           "Registered Successfully",
           style: TextStyle(fontSize: 20.0),),)));
@@ -37,14 +37,14 @@ class _SignUpState extends State<SignUp> {
       } on FirebaseException catch (e) {
         if(e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Color(0xFFFF9900),
+              backgroundColor: Color(0xFF2C325D),
               content: Text(
             "The provided password is too weak!",
             style: TextStyle(fontSize: 18.0),)));
         }
         else if(e.code == "email-already-in-use") {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Color(0xFFFF9900),
+              backgroundColor: Color(0xFF2C325D),
               content: Text(
             "Account already exists!",
             style: TextStyle(fontSize: 18.0),)));

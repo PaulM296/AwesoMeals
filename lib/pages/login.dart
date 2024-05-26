@@ -1,4 +1,7 @@
+import 'package:awesomeals/pages/bottomnav.dart';
 import 'package:awesomeals/pages/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/widget_support.dart';
@@ -11,6 +14,31 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String email = "", password = "";
+
+  final _formkey = GlobalKey<FormState>();
+
+  TextEditingController useremailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
+  userLogin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email, password: password);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNav()));
+    } on FirebaseAuthException catch(e) {
+      if(e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
+            "No user found for the specified Email",
+            style: TextStyle(fontSize: 18.0, color: Color(0xFF2C325D)))));
+      } else if(e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(
+            "The password is not correct",
+            style: TextStyle(fontSize: 18.0, color: Color(0xFF2C325D)))));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,66 +92,94 @@ class _LoginState extends State<Login> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 30.0,
-                          ),
-                          Text(
-                            "Login",
-                            style: AppWidget.HeadlineTextFieldStyle(),
-                          ),
-                          SizedBox(
-                            height: 30.0,
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                                hintText: 'Email',
-                                hintStyle: AppWidget.semiboldTextFieldStyle(),
-                                prefixIcon: Icon(Icons.email_outlined)),
-                          ),
-                          SizedBox(
-                            height: 30.0,
-                          ),
-                          TextField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                hintText: 'Password',
-                                hintStyle: AppWidget.semiboldTextFieldStyle(),
-                                prefixIcon: Icon(Icons.password_outlined)),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                "Forgot Password?",
-                                style: AppWidget.semiboldTextFieldStyle(),
-                              )),
-                          SizedBox(
-                            height: 80.0,
-                          ),
-                          Material(
-                            elevation: 5.0,
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
-                              width: 200,
-                              decoration: BoxDecoration(color: Color(0xFFFF9900), borderRadius: BorderRadius.circular(20)),
-                              child: Center(
-                                  child: Text(
-                                    "LOGIN",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        fontFamily: 'Poppins1',
-                                        fontWeight: FontWeight.bold),
-                                  )),
+                      child: Form(
+                        key: _formkey,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 30.0,
                             ),
-                          ),
+                            Text(
+                              "Login",
+                              style: AppWidget.HeadlineTextFieldStyle(),
+                            ),
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            TextFormField(
+                              controller: useremailController,
+                              validator: (value) {
+                                if(value == null || value.isEmpty) {
+                                  return 'Please enter the email';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                  hintText: 'Email',
+                                  hintStyle: AppWidget.semiboldTextFieldStyle(),
+                                  prefixIcon: Icon(Icons.email_outlined)),
+                            ),
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            TextFormField(
+                              controller: passwordController,
+                              validator: (value) {
+                                if(value == null || value.isEmpty) {
+                                  return 'Please enter the password';
+                                }
+                                return null;
+                              },
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  hintText: 'Password',
+                                  hintStyle: AppWidget.semiboldTextFieldStyle(),
+                                  prefixIcon: Icon(Icons.password_outlined)),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Container(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  "Forgot Password?",
+                                  style: AppWidget.semiboldTextFieldStyle(),
+                                )),
+                            SizedBox(
+                              height: 80.0,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if(_formkey.currentState!.validate()) {
+                                  setState(() {
+                                    email = useremailController.text;
+                                    password = passwordController.text;
+                                  });
+                                }
+                                userLogin();
+                              },
+                              child: Material(
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                                  width: 200,
+                                  decoration: BoxDecoration(color: Color(0xFFFF9900), borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                      child: Text(
+                                        "LOGIN",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0,
+                                            fontFamily: 'Poppins1',
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                ),
+                              ),
+                            ),
 
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
