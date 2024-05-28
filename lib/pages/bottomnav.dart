@@ -2,6 +2,7 @@ import 'package:awesomeals/pages/home_page.dart';
 import 'package:awesomeals/pages/information.dart';
 import 'package:awesomeals/pages/profile.dart';
 import 'package:awesomeals/pages/restaurants.dart';
+import 'package:awesomeals/pages/wallet.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _BottomNavState extends State<BottomNav> {
   late Order orderPage;
   late Information informationPage;
   late Restaurant restaurantPage;
+  late Wallet walletPage;
 
   @override
   void initState() {
@@ -38,7 +40,8 @@ class _BottomNavState extends State<BottomNav> {
     profilePage = Profile();
     informationPage = Information();
     restaurantPage = Restaurant();
-    pages = [homePage, restaurantPage, orderPage, profilePage, informationPage];
+    walletPage = Wallet();
+    pages = [homePage, restaurantPage, profilePage, walletPage, informationPage];
     super.initState();
   }
 
@@ -68,6 +71,10 @@ class _BottomNavState extends State<BottomNav> {
             Icons.person_outline,
             color: primaryColor
         ),
+          Icon(
+              Icons.wallet,
+              color: primaryColor
+          ),
         Icon(
             Icons.info_outline,
             color: primaryColor

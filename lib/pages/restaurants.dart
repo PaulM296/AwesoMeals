@@ -10,6 +10,21 @@ class Restaurant extends StatefulWidget {
 class _RestaurantState extends State<Restaurant> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+            children: [
+              Text(
+                'Restaurants',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepOrange,
+                ),
+              )]
+        ),
+      ),
+    );
   }
 }
