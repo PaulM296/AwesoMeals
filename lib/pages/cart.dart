@@ -1,3 +1,4 @@
+import 'package:awesomeals/pages/bottomnav.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatefulWidget {
@@ -8,15 +9,16 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  List<Map<String, dynamic>> cartItems = []; // You should manage this list
+  List<Map<String, dynamic>> cartItems = [];
 
   @override
   Widget build(BuildContext context) {
-    double totalPrice = cartItems.fold(0, (sum, item) => sum + (item['price'] * item['quantity']));
+    double totalPrice = cartItems.fold(0, (sum, item) => sum + (item['price']));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Cart'),
+        title:
+            Text('Shopping Cart', style: TextStyle(color: Color(0xFFFF9900))),
         backgroundColor: Color(0xFF2C325D),
       ),
       body: Padding(
@@ -36,7 +38,8 @@ class _CartState extends State<Cart> {
                 },
               ),
             ),
-            Text('Total: \$${totalPrice.toStringAsFixed(2)}'),
+            Text('Total: \$${totalPrice.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 20)),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -45,7 +48,10 @@ class _CartState extends State<Cart> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFFF9900),
               ),
-              child: Text('Checkout'),
+              child: Text(
+                'Checkout',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ],
         ),

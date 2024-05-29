@@ -5,6 +5,7 @@ class SharedPreferenceHelper {
   static String userNameKey = "USER_NAME_KEY";
   static String userEmailKey = "USER_EMAIL_KEY";
   static String userWalletKey = "USER_WALLET_KEY";
+  static String userName = "USER_CART";
 
   // Save methods
   Future<bool> saveUserId(String userId) async {
@@ -47,4 +48,5 @@ class SharedPreferenceHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(userWalletKey);
   }
+
 }
