@@ -1,6 +1,5 @@
 import 'package:awesomeals/pages/home_page.dart';
 import 'package:awesomeals/pages/information.dart';
-import 'package:awesomeals/pages/profile.dart';
 import 'package:awesomeals/pages/restaurants.dart';
 import 'package:awesomeals/pages/wallet.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -27,7 +26,6 @@ class _BottomNavState extends State<BottomNav> {
   late List<Widget> pages;
   late Widget currentPage;
   late Home homePage;
-  late Profile profilePage;
   late Order orderPage;
   late Information informationPage;
   late Restaurant restaurantPage;
@@ -37,11 +35,10 @@ class _BottomNavState extends State<BottomNav> {
   void initState() {
     homePage = Home();
     orderPage = Order();
-    profilePage = Profile();
     informationPage = Information();
     restaurantPage = Restaurant();
     walletPage = Wallet();
-    pages = [homePage, restaurantPage, profilePage, walletPage, informationPage];
+    pages = [homePage, restaurantPage, orderPage, walletPage, informationPage];
     super.initState();
   }
 

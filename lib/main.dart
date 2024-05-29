@@ -2,18 +2,23 @@ import 'package:awesomeals/pages/bottomnav.dart';
 import 'package:awesomeals/pages/home_page.dart';
 import 'package:awesomeals/pages/onboard.dart';
 import 'package:awesomeals/pages/signup.dart';
+import 'package:awesomeals/service/database.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-        apiKey: "AIzaSyBFT9P5_LWjgFmgETyh5iFeBgslVQEYCp4",
-        appId: "1:942078212714:android:ac4e45a51e6167f0be2813",
-        messagingSenderId: "942078212714",
-        projectId: "awesomeals-6f4e8")
-  );
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyBFT9P5_LWjgFmgETyh5iFeBgslVQEYCp4",
+          appId: "1:942078212714:android:ac4e45a51e6167f0be2813",
+          messagingSenderId: "942078212714",
+          projectId: "awesomeals-6f4e8"));
+
+  // Add sample data
+  await DatabaseMethods().addSampleData();
+
   runApp(MyApp());
 }
 
@@ -23,22 +28,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Authentication Demo',
-      theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xFFFF9900)
-      ),
-      home: Onboard()
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => const LoginPage(),
-      //   '/signup': (context) => const SignUpPage(),
-      //   '/home': (context) => const Home()
-      // },
-    );
+        title: 'Authentication Demo',
+        theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFF9900)),
+        home: Onboard()
+        // initialRoute: '/',
+        // routes: {
+        //   '/': (context) => const LoginPage(),
+        //   '/signup': (context) => const SignUpPage(),
+        //   '/home': (context) => const Home()
+        // },
+        );
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});

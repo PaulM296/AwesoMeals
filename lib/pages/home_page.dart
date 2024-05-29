@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
+import '../service/database.dart';
 import '../widget/widget_support.dart';
 import 'details.dart';
 
@@ -11,7 +9,6 @@ const Color accentColor = Color(0xFFF57C00);  // Darker orange for accents
 const Color whiteColor = Colors.white;  // White for text and icons
 const Color blueColor = Color(0xFF2C325D);
 
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -20,6 +17,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Map<String, dynamic>> dishes = [];
+  final DatabaseMethods databaseMethods = DatabaseMethods();
 
   bool pizza = false;
   bool burger = false;
@@ -27,9 +26,20 @@ class _HomeState extends State<Home> {
   bool dessert = false;
 
   @override
+  void initState() {
+    super.initState();
+    fetchDishes();
+  }
+
+  fetchDishes() async {
+    dishes = await DatabaseMethods().getDishes();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView (
+      body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 10.0),
           child: Column(
@@ -38,159 +48,132 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Menu",
-                      style: AppWidget.boldTextFieldStyle()
-                  ),
+                  Text("Menu", style: AppWidget.boldTextFieldStyle()),
                   Container(
                     padding: EdgeInsets.all(3),
-                    decoration: BoxDecoration(color: blueColor, borderRadius: BorderRadius.circular(8)),
+                    decoration: BoxDecoration(
+                      color: blueColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     child: Icon(Icons.shopping_cart, color: primaryColor),
-                  )
+                  ),
                 ],
               ),
-              SizedBox(
-                height: 30.0,
-              ),
-              Text("Delicious Food",
-                  style: AppWidget.HeadlineTextFieldStyle()
-              ),
-              SizedBox(
-                  height: 20.0
-              ),
+              SizedBox(height: 30.0),
+              Text("Delicious Food", style: AppWidget.HeadlineTextFieldStyle()),
+              SizedBox(height: 20.0),
               ShowItem(),
-              SizedBox(height: 30.0,),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+              SizedBox(height: 30.0),
+              if (dishes.length >= 2) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(4),
-                        child: Material(
-                          elevation: 5.0,
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(
-                            padding: EdgeInsets.all(14),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset("images/Pizza2.png", height: 150, width: 150, fit: BoxFit.cover),
-                                Text("Salami Pizza",
-                                    style: AppWidget.semiboldTextFieldStyle()),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text("Tasty And Delicious",
-                                    style: AppWidget.lightWhiteTextFieldStyle()),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text("\45.99Ron",
-                                    style: AppWidget.lightWhiteTextFieldStyle())
-                              ],),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 15.0),
-                    Container(
-                      margin: EdgeInsets.all(4),
-                      child: Material(
-                        elevation: 5.0,
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          padding: EdgeInsets.all(14),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset("images/Burger2.png", height: 150, width: 150, fit: BoxFit.cover),
-                              Text("Salami Pizza",
-                                  style: AppWidget.semiboldTextFieldStyle()),
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text("Tasty And Delicious",
-                                  style: AppWidget.lightWhiteTextFieldStyle()),
-                              SizedBox(
-                                height: 5.0,
-                              ),
-                              Text("\41.99Ron",
-                                  style: AppWidget.lightWhiteTextFieldStyle())
-                            ],),
-                        ),
-                      ),
-                    )
-                  ],),
-              ),
+                    buildDishCard(dishes[0]),
+                    buildDishCard(dishes[1]),
+                  ],
+                ),
+              ],
+              SizedBox(height: 30.0),
+              if (dishes.length >= 4) ...[
+                buildDishListTile(dishes[2]),
+                SizedBox(height: 30.0),
+                buildDishListTile(dishes[3]),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-              SizedBox(height: 30.0),
-              Container(
-                margin: EdgeInsets.only(right: 20.0),
-                child: Material(
-                  elevation: 5.0,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset("images/Pizza2.png", height: 120, width: 120, fit: BoxFit.cover),
-                        SizedBox(width: 20.0),
-                        Column(children: [
-                          Container(
-                              width: MediaQuery.of(context).size.width/2,
-                              child: Text("Pepperoni Pizza", style: AppWidget.semiboldTextFieldStyle())
-                          ),
-                          SizedBox(height: 5.0),
-                          Container(
-                              width: MediaQuery.of(context).size.width/2,
-                              child: Text("A very tasty and delicious pizza", style: AppWidget.lightWhiteTextFieldStyle())
-                          ),
-                          SizedBox(height: 5.0),
-                          Container(
-                            width: MediaQuery.of(context).size.width/2,
-                            child: Text("42.99Ron", style: AppWidget.lightWhiteTextFieldStyle()),
-                          ),
-                        ],)
-                      ],),
+  Widget buildDishCard(Map<String, dynamic> dish) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Details()),
+        );
+      },
+      child: Container(
+        width: (MediaQuery.of(context).size.width - 60) / 2,  // Ensure proper width
+        margin: EdgeInsets.all(4),
+        child: Material(
+          elevation: 5.0,
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: EdgeInsets.all(14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image.network(
+                    dish['imageUrl'],
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.cover,
                   ),
+                ),
+                SizedBox(height: 10.0),
+                Text(dish['name'], style: AppWidget.biggerSemiboldTextFieldStyle()),
+                SizedBox(height: 5.0),
+                Text(dish['description'], style: AppWidget.semiboldTextFieldStyle()),
+                SizedBox(height: 5.0),
+                Text("${dish['price']} Ron", style: AppWidget.semiboldTextFieldStyle()),
+                SizedBox(height: 5.0),
+                //Text(dish['restaurantName'], style: AppWidget.lightWhiteTextFieldStyle()),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDishListTile(Map<String, dynamic> dish) {
+    return Container(
+      margin: EdgeInsets.only(right: 20.0),
+      child: Material(
+        elevation: 5.0,
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          padding: EdgeInsets.all(5),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Image.network(
+                  dish['imageUrl'],
+                  height: 120,
+                  width: 120,
+                  fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 30.0),
-              Container(
-                margin: EdgeInsets.only(right: 20.0),
-                child: Material(
-                  elevation: 5.0,
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset("images/Pizza2.png", height: 120, width: 120, fit: BoxFit.cover),
-                        SizedBox(width: 20.0),
-                        Column(children: [
-                          Container(
-                              width: MediaQuery.of(context).size.width/2,
-                              child: Text("Pepperoni Pizza", style: AppWidget.semiboldTextFieldStyle())
-                          ),
-                          SizedBox(height: 5.0),
-                          Container(
-                              width: MediaQuery.of(context).size.width/2,
-                              child: Text("A very tasty and delicious pizza", style: AppWidget.lightWhiteTextFieldStyle())
-                          ),
-                          SizedBox(height: 5.0),
-                          Container(
-                            width: MediaQuery.of(context).size.width/2,
-                            child: Text("42.99Ron", style: AppWidget.lightWhiteTextFieldStyle()),
-                          ),
-                        ],)
-                      ],),
+              SizedBox(width: 20.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(dish['name'], style: AppWidget.biggerSemiboldTextFieldStyle()),
                   ),
-                ),
+                  SizedBox(height: 5.0),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(dish['description'], style: AppWidget.semiboldTextFieldStyle()),
+                  ),
+                  SizedBox(height: 5.0),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text("${dish['price']} Ron", style: AppWidget.semiboldTextFieldStyle()),
+                  ),
+                  SizedBox(height: 5.0),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    //child: Text(dish['restaurantName'], style: AppWidget.lightWhiteTextFieldStyle()),
+                  ),
+                ],
               ),
             ],
           ),
@@ -198,6 +181,7 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
 
   Widget ShowItem() {
     return Row(

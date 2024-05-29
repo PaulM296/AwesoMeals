@@ -1,11 +1,13 @@
 import 'package:awesomeals/pages/bottomnav.dart';
 import 'package:awesomeals/pages/forgot_password.dart';
 import 'package:awesomeals/pages/signup.dart';
+import 'package:awesomeals/service/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../service/shared_pref.dart';
 import '../widget/widget_support.dart';
 
 class Login extends StatefulWidget {
@@ -25,8 +27,16 @@ class _LoginState extends State<Login> {
 
   userLogin() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredentials = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email, password: password);
+
+      Map<String, dynamic> user = await DatabaseMethods().getUser(email);
+
+      await SharedPreferenceHelper().saveUserName(user['Name']);
+      await SharedPreferenceHelper().saveUserEmail(user['Email']);
+      await SharedPreferenceHelper().saveUserWallet(user['Wallet']);
+      await SharedPreferenceHelper().saveUserId(user['Id']);
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNav()));
     } on FirebaseAuthException catch(e) {
       if(e.code == 'user-not-found') {

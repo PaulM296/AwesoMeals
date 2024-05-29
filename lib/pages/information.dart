@@ -20,7 +20,7 @@ class _InformationState extends State<Information> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepOrange,
+                color: Color(0xFF2C325D),
               ),
             ),
             SizedBox(height: 20),
@@ -29,7 +29,7 @@ class _InformationState extends State<Information> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Color(0xFF2C325D),
               ),
             ),
             SizedBox(height: 10),
@@ -48,7 +48,7 @@ class _InformationState extends State<Information> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color:Color(0xFF2C325D),
               ),
             ),
             SizedBox(height: 10),
@@ -68,7 +68,7 @@ class _InformationState extends State<Information> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Color(0xFF2C325D),
               ),
             ),
             SizedBox(height: 10),
